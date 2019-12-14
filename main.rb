@@ -9,6 +9,15 @@ def compute(window_size, values)
   puts "window size: #{window_size}\nvalues: #{values}\nmoving avg: #{result}"
 end
 
-compute(3, [0, 1, 2, 3])
-puts '-'*10
-compute(5, [0, 1, -2, 3, -4, 5, -6, 7, -8, 9])
+def benchmark
+  start = Time.now
+  yield
+  finish = Time.now
+  puts "\nTook #{finish-start} seconds"
+end
+
+benchmark do
+  compute(3, [0, 1, 2, 3])
+  puts '-'*10
+  compute(5, [0, 1, -2, 3, -4, 5, -6, 7, -8, 9])
+end
