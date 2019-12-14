@@ -159,7 +159,7 @@ if count > window_size # which is true
 ### Notes
 The given solution is the optimal one, in my opinion. I first applied a naive approach shown below.
 ```ruby
-def compute_slow(window_size, values)
+def compute(window_size, values)
     check(window_size, values)
     result = []
 
