@@ -43,7 +43,7 @@ ruby main.rb
 - We assume that the window size cannot be greater than the size of the array elements, as it sounds unreasonable to have a window bigger than the total amount of elements in the array. So the code raises an exception if the window is greater than the size of the array elements.
 
 ### The solution
-The solution is made out of a class called `MovingAverage`. It has a constructor that initializes the `@sum` variable to 0, and the `@result` variable to an empty array. This class has a function called `compute`. It takes 2 arguments: `window_size`, which is an integer, and `values`, which is a double-precision float type array. 
+The code for this solution is in `lib/moving_average.rb`. The solution is made out of a class called `MovingAverage`. It has a constructor that initializes the `@sum` variable to 0, and the `@result` variable to an empty array. This class has a function called `compute`. It takes 2 arguments: `window_size`, which is an integer, and `values`, which is a double-precision float type array. 
 
 The function starts by checking the arguments for any issues by following the specification requirements and the assumptions described in the **Assumptions** section above.  Once passed, we then start iterating on the `values` array. The code first checks if an element is a double type or else it raises an exception.
 
@@ -53,9 +53,11 @@ The variable `number` is then set to equal to the value in `count`. `number` is 
 
 We then check if `count` is still smaller (not greater) than or equal `window_size`. If that is the case, we call the `mean` function, which calculates the average and passes `@sum` and `number` as arguments. The `mean` outcome is appended to `@results` array. Thus, calculating the cumulative average.
 
-However, if `count` is bigger than `window_size`, we follow the specification by calculating the sum of the recent elements, including the current one, and those elements are within the window size. To do that, we first set `number` to equal `window_size`  to divide the sum with it to get the average. We also subtract a value from `@sum`. That value is not within the current window size but existed in the previous window size in the previous iteration. We get that value by getting its index in the `values` array by subtracting `index` with `window_size`. After that, the new `@sum` with `number` to the `mean` function. The outcome is then appended to `@result`. Thus, calculating a simple moving average.
+However, if `count` is bigger than `window_size`, we follow the specification by calculating the sum of the elements, including the current one, that are within the window size. To do that, we first set `number` to equal `window_size`  to divide the sum with it to get the average. We also subtract a value from `@sum`. That value is not within the current window size but existed in the previous window size in the previous iteration. We get that value by getting its index in the `values` array by subtracting `index` with `window_size`. After that, the new `@sum` with `number` to the `mean` function. The outcome is then appended to `@result`. Thus, calculating a simple moving average.
 
-To illustrate the situation above, we assume that we have a window size of `3`, and an array of `[0, 1, 2, 3]`.
+So instead of recalculating the sum of elements wihtin the window size after every iteration, we just simply add one element at a time to the sum after every iteration and subtract the value of the element that is not in the window anymore, which is done by subtracting the current element's index and the window size which will give us the index of the value that was in the previous window. This simulates as if the array is moving forward and calculating the sum of those elements withing the range. This approach is more efficient than reclaulating the sum everytime for the elements that are in the window range when moving forward.
+
+To illustrate, we assume that we have a window size of `3`, and an array of `[0, 1, 2, 3]`. Below we use go through the variables values in every iteration in my code.
 ```ruby
 # initialized variables
 @sum = 0
@@ -187,13 +189,13 @@ The time complexity for that was `O(n*m)` where `n` is the number of elements in
 ```ruby
 compute(1000, (1..1_000_000).to_a) 
 ```
-It took 5.8299844 seconds with the simple approach. However, it took half of that with the optimal approach, which is 2.4997761 seconds.
+It took **5.8299844 seconds** with the simple approach. However, it took half of that with the optimal approach, which is **2.4997761 seconds**.
 
 I made another test after increasing the window size to ten thousand, as shown below.
 ```ruby
 compute(10000, (1..1_000_000).to_a) 
 ```
-It took 30.4428852 seconds with the naive solution. With the optimized version, it took only 2.6338202 seconds, which is way better than 30 seconds.
+It took **30.4428852 seconds** with the naive solution. With the optimized version, it took only **2.6338202 seconds**, which is way better than 30 seconds.
 
 You can test on your machine by uncommenting one of these lines in `main.rb`. The execution will vary depending on the machine, but these tests prove that my solution is efficient.
 
