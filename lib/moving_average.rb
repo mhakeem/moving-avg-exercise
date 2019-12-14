@@ -61,14 +61,14 @@ class MovingAverage
       
       count = index + 1
       number = count
+      @sum += value
       
       # simple moving average
-      unless count <= window_size
+      if  count > window_size
         number = window_size
         @sum -= values[index - window_size]
       end
       
-      @sum += value
       @result << mean(@sum, number)
     end
     @result
