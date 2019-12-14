@@ -17,7 +17,7 @@ bundle install
 
 ### Running the code
 There are a test suite and the main program. 
-### The test suite
+#### The test suite
 It documents and checks if the code follows the specifications and assumptions. Use the following command to run it:
 ```sh
 rake
@@ -26,7 +26,7 @@ If that doesn't work, use the following command:
 ```sh
 ruby spec/moving_average_spec.rb
 ```
-### The main program 
+#### The main program 
 It has an example code that outputs the window size, values array, the results array of moving averages, and the time it took to execute. There are a couple of commented codes so that you can uncomment either of them and check the code performance.
 To run it, use the following command:
 ```sh
