@@ -48,27 +48,34 @@ specs:
 DOC
 
 class MovingAverage
-  def compute(window_size, values)
-    check(window_size, values)
-    result = []
-
-    values.each_with_index do |value, index|
-      raise TypeError, 'found a non-numeric value. values must be an array of floating point numbers' unless value.is_a? Numeric
-      count = index + 1
-
-      if count <= window_size
-        # cumulative average
-        result << mean(values[0..index], count)
-      else
-        # simple moving average
-        result << mean(values[(count-window_size)..index], window_size)
-      end
-    end
-    result
+  def initialize
+    @sum = 0
+    @result = []
   end
 
-  def mean(values, number)
-    values.inject(:+)/number.to_f
+  def compute(window_size, values)
+    check(window_size, values)
+    
+    values.each_with_index do |value, index|
+      raise TypeError, 'found a non-numeric value. values must be an array of floating point numbers' unless value.is_a? Numeric
+      
+      count = index + 1
+      number = count
+      
+      # simple moving average
+      unless count <= window_size
+        number = window_size
+        @sum -= values[index - window_size]
+      end
+      
+      @sum += value
+      @result << mean(@sum, number)
+    end
+    @result
+  end
+
+  def mean(sum, number)
+    sum/number.to_f
   end
 
   private
@@ -81,4 +88,28 @@ class MovingAverage
     raise ArgumentError, 'values cannot have less than 2 items' if size < 2
     raise ArgumentError, 'window_size cannot be greater than the values array size' if window_size > size
   end
+
+  ## slow approach
+  # def compute_slow(window_size, values)
+  #   check(window_size, values)
+  #   result = []
+
+  #   values.each_with_index do |value, index|
+  #     raise TypeError, 'found a non-numeric value. values must be an array of floating point numbers' unless value.is_a? Numeric
+  #     count = index + 1
+
+  #     if count <= window_size
+  #       # cumulative average
+  #       result << mean(values[0..index], count)
+  #     else
+  #       # simple moving average
+  #       result << mean(values[(count-window_size)..index], window_size)
+  #     end
+  #   end
+  #   result
+  # end
+
+  # def mean(values, number)
+  #   values.inject(:+)/number.to_f
+  # end
 end
