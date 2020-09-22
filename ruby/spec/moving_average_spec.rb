@@ -23,50 +23,50 @@ describe MovingAverage do
 
     describe 'when given a non-inetger value to window_size' do
       it 'must throw a TypeError exception' do
-        err = -> {@moving_average.compute('3', [0, 1, 2, 3])}.must_raise TypeError
-        err.message.must_match 'window_size must be an integer'
+        err = assert_raises(TypeError) { @moving_average.compute('3', [0, 1, 2, 3]) }
+        _(err.message).must_match 'window_size must be an integer'
       end
     end
 
     describe 'when given a non-array argument to values' do
       it 'must throw a TypeError exception' do
-        err = -> {@moving_average.compute(3, '[0, 1, 2, 3]')}.must_raise TypeError
-        err.message.must_match 'values nust be an array'
+        err = assert_raises(TypeError) { @moving_average.compute(3, '[0, 1, 2, 3]') }
+        _(err.message).must_match 'values nust be an array'
       end
     end
     
     describe 'when given an empty array for values' do
       it 'must throw a ArgumentError exception' do
-        err = -> {@moving_average.compute(3, [])}.must_raise ArgumentError
-        err.message.must_match 'values cannot be an empty array'
+        err = assert_raises(ArgumentError) { @moving_average.compute(3, []) }
+        _(err.message).must_match 'values cannot be an empty array'
       end
     end
    
     describe 'when given a window_size smaller than 2' do
       it 'must throw a ArgumentError exception' do
-        err = -> {@moving_average.compute(1, [0, 1, 2, 3])}.must_raise ArgumentError
-        err.message.must_match 'window_size cannot be less than 2'
+        err = assert_raises(ArgumentError) { @moving_average.compute(1, [0, 1, 2, 3]) }
+        _(err.message).must_match 'window_size cannot be less than 2'
       end
     end
 
     describe 'when given a array smaller than 2 to values' do
       it 'must throw a ArgumentError exception' do
-        err = -> {@moving_average.compute(3, [0])}.must_raise ArgumentError
-        err.message.must_match 'values cannot have less than 2 items'
+        err = assert_raises(ArgumentError) { @moving_average.compute(3, [0]) }
+        _(err.message).must_match 'values cannot have less than 2 items'
       end
     end
     
     describe 'when given a window_size to be greater than the size values array' do
       it 'must throw a ArgumentError exception' do
-        err = -> {@moving_average.compute(5, [0, 1, 2, 3])}.must_raise ArgumentError
-        err.message.must_match 'window_size cannot be greater than the values array size'
+        err = assert_raises(ArgumentError) { @moving_average.compute(5, [0, 1, 2, 3]) }
+        _(err.message).must_match 'window_size cannot be greater than the values array size'
       end
     end
     
     describe 'when values has a non-numeric element' do
       it 'must throw a TypeError exception' do
-        err = -> {@moving_average.compute(3, [0, '1', 2, 3])}.must_raise TypeError
-        err.message.must_match 'ound a non-numeric value. values must be an array of floating point numbers'
+        err = assert_raises(TypeError) { @moving_average.compute(3, [0, '1', 2, 3]) }
+        _(err.message).must_match 'ound a non-numeric value. values must be an array of floating point numbers'
       end
     end
   end
