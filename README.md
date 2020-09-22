@@ -7,7 +7,9 @@
     - to install Ruby, choose your OS, and follow the steps until the **Configuring Git** section as described in this link https://gorails.com/setup/ubuntu/18.04.
 - OS: Preferably Linux or macOS
 
-**NOTE**: This code was tested with Ruby 2.6.5 on Ubuntu 18.04
+**NOTE (1)**: This code was tested with Ruby 2.6.5 on Ubuntu 18.04
+**NOTE (2)**: Ther is a python version of the code that was tested with Python 3.6.9 on Ubuntu 18.04
+**NOTE(3)**: The steps below are for running Ruby code. To run ruby code, change your folder to the `ruby` folder. The `python` folder has a README file to run the test.
 
 ### Libraries installation (optional)
 The code should run without any library installation if using ruby 2.6. If any issues occur due to missing gems (libraries), run the following command:
