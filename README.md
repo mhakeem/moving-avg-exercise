@@ -8,7 +8,9 @@
 - OS: Preferably Linux or macOS
 
 **NOTE (1)**: This code was tested with Ruby 2.6.5 on Ubuntu 18.04
+
 **NOTE (2)**: Ther is a python version of the code that was tested with Python 3.6.9 on Ubuntu 18.04
+
 **NOTE(3)**: The steps below are for running Ruby code. To run ruby code, change your folder to the `ruby` folder. The `python` folder has a README file to run the test.
 
 ### Libraries installation (optional)
